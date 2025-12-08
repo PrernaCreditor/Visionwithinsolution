@@ -3,7 +3,8 @@ import logo from "../assets/logo.png";
 
 export default function ContactForm() {
   return (
-    <section id="contact"
+    <section
+      id="contact"
       className="relative overflow-hidden py-20 px-4 bg-gradient-to-br from-purple-50 via-white to-purple-100/60"
       style={{ WebkitFontSmoothing: "antialiased" }}
     >
@@ -51,17 +52,26 @@ export default function ContactForm() {
                 small business, we help lighten your admin load.
               </p>
 
+              {/* Contact Info */}
               <div className="space-y-4 text-sm text-secondary/80">
                 <div className="flex gap-3 items-start">
                   <span className="text-primary text-lg">📍</span>
                   <p>Supporting businesses nationwide</p>
                 </div>
 
+                {/* Phone */}
                 <div className="flex gap-3 items-start">
                   <span className="text-primary text-lg">📞</span>
-                  <p>+1 (000) 000-0000</p>
+                  <p>Phone: 216.245.8550</p>
                 </div>
 
+                {/* Fax */}
+                <div className="flex gap-3 items-start">
+                  <span className="text-primary text-lg">📠</span>
+                  <p>Fax: 216.674.6234</p>
+                </div>
+
+                {/* Email */}
                 <div className="flex gap-3 items-start">
                   <span className="text-primary text-lg">📧</span>
                   <p>info@visionswithinsolutions.com</p>
@@ -80,7 +90,7 @@ export default function ContactForm() {
             </div>
           </div>
 
-          {/* RIGHT — Form Card (Lavender) */}
+          {/* RIGHT — Form Card */}
           <div className="bg-purple-50 backdrop-blur-xl rounded-3xl border border-primary/20 shadow-xl p-7 md:p-8 text-secondary">
 
             <h3 className="text-lg md:text-xl font-semibold mb-4 

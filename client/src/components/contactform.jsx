@@ -1,7 +1,64 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "../assets/logo.png";
 
 export default function ContactForm() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    service: "Real Estate",
+    message: "",
+  });
+
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setSuccess("");
+    setError("");
+
+    try {
+      const res = await fetch("http://localhost:5000/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: `
+Service Needed: ${formData.service}
+
+Message:
+${formData.message}
+          `,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message || "Failed to send message");
+      }
+
+      setSuccess("✅ Your message has been sent successfully!");
+      setFormData({
+        name: "",
+        email: "",
+        service: "Real Estate",
+        message: "",
+      });
+    } catch (err) {
+      setError("❌ Something went wrong. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <section
       id="contact"
@@ -9,7 +66,7 @@ export default function ContactForm() {
       style={{ WebkitFontSmoothing: "antialiased" }}
     >
       <div className="max-w-6xl mx-auto relative">
-        {/* Soft background accent */}
+        {/* Background accents */}
         <div className="pointer-events-none absolute -top-32 -right-32 w-72 h-72 bg-primary/15 rounded-full blur-3xl" />
         <div className="pointer-events-none absolute -bottom-24 -left-24 w-80 h-80 bg-purple-300/20 rounded-full blur-3xl" />
 
@@ -24,22 +81,18 @@ export default function ContactForm() {
           </h2>
 
           <p className="text-secondary/70 max-w-2xl mx-auto text-sm md:text-base">
-            Tell us a bit about your business and we’ll follow up with
-            clear next steps — no pressure, just support.
+            Tell us a bit about your business and we’ll follow up with clear next
+            steps — no pressure, just support.
           </p>
         </div>
 
-        {/* Main layout */}
         <div className="relative grid gap-8 md:grid-cols-[1.1fr_1.2fr] items-stretch">
-
-          {/* LEFT — Company Info Card (Lavender) */}
+          {/* LEFT CARD */}
           <div className="bg-purple-100/60 backdrop-blur-xl rounded-3xl border border-primary/20 shadow-lg p-7 md:p-8 flex flex-col justify-between">
-
             <div>
-              {/* Logo */}
-              <div className="mb-6 flex justify-start">
+              <div className="mb-6">
                 <div className="bg-white rounded-full p-4 inline-flex shadow-md border border-primary/20">
-                  <img src={logo} alt="Logo" className="w-24 h-auto md:w-28" />
+                  <img src={logo} alt="Logo" className="w-24 md:w-28" />
                 </div>
               </div>
 
@@ -47,116 +100,80 @@ export default function ContactForm() {
                 Get in touch with our team
               </h3>
 
-              <p className="text-secondary/70 text-sm md:text-base mb-6">
+              <p className="text-secondary/70 mb-6">
                 Whether you're managing real estate, a group home, or a growing
                 small business, we help lighten your admin load.
               </p>
 
-              {/* Contact Info */}
               <div className="space-y-4 text-sm text-secondary/80">
-                <div className="flex gap-3 items-start">
-                  <span className="text-primary text-lg">📍</span>
-                  <p>Supporting businesses nationwide</p>
-                </div>
-
-                {/* Phone */}
-                <div className="flex gap-3 items-start">
-                  <span className="text-primary text-lg">📞</span>
-                  <p>Phone: 216.245.8550</p>
-                </div>
-
-                {/* Fax */}
-                <div className="flex gap-3 items-start">
-                  <span className="text-primary text-lg">📠</span>
-                  <p>Fax: 216.674.6234</p>
-                </div>
-
-                {/* Email */}
-                <div className="flex gap-3 items-start">
-                  <span className="text-primary text-lg">📧</span>
-                  <p>info@visionswithinsolutions.com</p>
-                </div>
+                <p>📍 Supporting businesses nationwide</p>
+                <p>📞 Phone: 216.245.8550</p>
+                <p>📠 Fax: 216.674.6234</p>
+                <p>📧 info@visionswithinsolutions.com</p>
               </div>
-            </div>
-
-            {/* Chips */}
-            <div className="mt-6 flex flex-wrap gap-2 text-[11px] text-secondary/70">
-              <span className="px-3 py-1 rounded-full border border-primary/20 bg-purple-200/40">
-                No long-term contract
-              </span>
-              <span className="px-3 py-1 rounded-full border border-primary/20 bg-purple-200/40">
-                Tailored business support
-              </span>
             </div>
           </div>
 
-          {/* RIGHT — Form Card */}
+          {/* RIGHT FORM */}
           <div className="bg-purple-50 backdrop-blur-xl rounded-3xl border border-primary/20 shadow-xl p-7 md:p-8 text-secondary">
-
-            <h3 className="text-lg md:text-xl font-semibold mb-4 
-                text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-purple-300 to-purple-700">
+            <h3 className="text-lg md:text-xl font-semibold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-purple-300 to-purple-700">
               Send us a message
             </h3>
 
-            <p className="text-secondary/70 text-xs md:text-sm mb-6">
-              We usually reply within 24–48 business hours.
-            </p>
-
-            <form className="space-y-5 text-sm font-medium">
-              {/* Name + Email */}
+            <form onSubmit={handleSubmit} className="space-y-5 text-sm font-medium">
               <div className="grid md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-xs mb-1 text-secondary">Full Name</label>
-                  <input
-                    type="text"
-                    placeholder="Enter your name"
-                    className="w-full border border-primary/30 px-4 py-2.5 rounded-md bg-white/60 focus:outline-none focus:ring-2 focus:ring-primary"
-                  />
-                </div>
+                <input
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  placeholder="Full Name"
+                  className="w-full border px-4 py-2.5 rounded-md"
+                />
 
-                <div>
-                  <label className="block text-xs mb-1 text-secondary">Email Address</label>
-                  <input
-                    type="email"
-                    placeholder="Enter your email"
-                    className="w-full border border-primary/30 px-4 py-2.5 rounded-md bg-white/60 focus:outline-none focus:ring-2 focus:ring-primary"
-                  />
-                </div>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  placeholder="Email Address"
+                  className="w-full border px-4 py-2.5 rounded-md"
+                />
               </div>
 
-              {/* Service */}
-              <div>
-                <label className="block text-xs mb-1 text-secondary">Service Needed</label>
-                <select
-                  className="w-full border border-primary/30 px-4 py-2.5 rounded-md bg-white/60 focus:outline-none focus:ring-2 focus:ring-primary"
-                >
-                  <option>Real Estate</option>
-                  <option>Group Home Support</option>
-                  <option>Bookkeeping Services</option>
-                  <option>Other</option>
-                </select>
-              </div>
+              <select
+                name="service"
+                value={formData.service}
+                onChange={handleChange}
+                className="w-full border px-4 py-2.5 rounded-md"
+              >
+                <option>Real Estate</option>
+                <option>Group Home Support</option>
+                <option>Bookkeeping Services</option>
+                <option>Other</option>
+              </select>
 
-              {/* Message */}
-              <div>
-                <label className="block text-xs mb-1 text-secondary">Message</label>
-                <textarea
-                  rows="4"
-                  placeholder="Tell us what support you're looking for..."
-                  className="w-full border border-primary/30 px-4 py-2.5 rounded-md bg-white/60 focus:outline-none focus:ring-2 focus:ring-primary resize-none"
-                ></textarea>
-              </div>
+              <textarea
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                rows="4"
+                required
+                placeholder="Tell us what support you're looking for..."
+                className="w-full border px-4 py-2.5 rounded-md resize-none"
+              />
 
               <button
                 type="submit"
-                className="w-full mt-2 bg-primary text-light py-3 rounded-md font-semibold hover:bg-primary/90 transition shadow-md"
+                disabled={loading}
+                className="w-full bg-primary text-white py-3 rounded-md font-semibold hover:bg-primary/90 transition"
               >
-                Send Message
+                {loading ? "Sending..." : "Send Message"}
               </button>
 
-              <p className="text-[11px] text-secondary/70 mt-2 text-center">
-                Your information is safe with us — no spam, ever.
-              </p>
+              {success && <p className="text-green-600 text-sm">{success}</p>}
+              {error && <p className="text-red-600 text-sm">{error}</p>}
             </form>
           </div>
         </div>

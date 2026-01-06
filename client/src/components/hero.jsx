@@ -47,15 +47,21 @@ export default function Hero() {
 
             {/* Buttons */}
             <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 pt-2">
-              <button className="bg-light text-primary px-8 py-3 rounded-xl font-semibold shadow-lg hover:bg-white hover:scale-105 transition">
-                Book a Free Consultation
-              </button>
+  <a
+    href="#contact"
+    className="bg-light text-primary px-8 py-3 rounded-xl font-semibold shadow-lg hover:bg-white hover:scale-105 transition text-center"
+  >
+    Book a Free Consultation
+  </a>
 
-              <button className="border border-white/30 px-8 py-3 rounded-xl font-semibold text-white hover:bg-white hover:text-primary hover:scale-105 transition">
-                Explore Our Services
-              </button>
-            </div>
-          </div>
+  <a
+    href="#services"
+    className="border border-white/30 px-8 py-3 rounded-xl font-semibold text-white hover:bg-white hover:text-primary hover:scale-105 transition text-center"
+  >
+    Explore Our Services
+  </a>
+</div>
+</div>
 
           {/* RIGHT SERVICES CARD */}
           <div className="flex justify-center lg:justify-end">

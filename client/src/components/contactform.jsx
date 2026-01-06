@@ -22,29 +22,28 @@ export default function ContactForm() {
     setLoading(true);
     setSuccess("");
     setError("");
-
+  
     try {
-      const res = await fetch("http://localhost:5000/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          message: `
-Service Needed: ${formData.service}
-
-Message:
-${formData.message}
-          `,
-        }),
-      });
-
-      const data = await res.json();
-
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/support`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: formData.name,
+            email: formData.email,
+            service: formData.service,
+            message: formData.message,
+          }),
+        }
+      );
+  
+      const data = await res.json().catch(() => ({}));
+  
       if (!res.ok) {
         throw new Error(data.message || "Failed to send message");
       }
-
+  
       setSuccess("✅ Your message has been sent successfully!");
       setFormData({
         name: "",
@@ -58,6 +57,7 @@ ${formData.message}
       setLoading(false);
     }
   };
+  
 
   return (
     <section

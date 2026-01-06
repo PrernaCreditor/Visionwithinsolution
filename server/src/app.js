@@ -4,12 +4,10 @@ import contactRoutes from "./routes/contact.routes.js";
 
 const app = express();
 
-app.use(cors({
-  origin: "*"
-}));
-
+app.use(cors({ origin: "*" }));
 app.use(express.json());
 
-app.use("/api/contact", contactRoutes);
+// ✅ FIX HERE
+app.use("/api/support", contactRoutes);
 
 export default app;

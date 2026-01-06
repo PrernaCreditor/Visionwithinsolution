@@ -54,7 +54,7 @@ export default function About() {
             </div>
 
             <div className="rounded-xl border border-primary/15 bg-light/70 px-4 py-4">
-              <h4 className="text-sm font-semibold text-primary mb-1">Organisation</h4>
+              <h4 className="text-sm font-semibold text-primary mb-1">Organization</h4>
               <p className="text-xs text-secondary/70">Clear systems behind your daily operations.</p>
             </div>
 

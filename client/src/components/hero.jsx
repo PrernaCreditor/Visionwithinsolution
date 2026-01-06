@@ -2,9 +2,13 @@ import doJpg from "../assets/do.jpg";
 
 export default function Hero() {
   return (
-    <section id="hero"
+    <section
+      id="hero"
       className="relative overflow-hidden bg-black text-light"
-      style={{ fontFamily: "Georgia, serif", WebkitFontSmoothing: "antialiased" }}
+      style={{
+        fontFamily: "Georgia, serif",
+        WebkitFontSmoothing: "antialiased",
+      }}
     >
       {/* Background Image */}
       <div
@@ -20,8 +24,7 @@ export default function Hero() {
       <div className="absolute bottom-0 right-0 w-80 h-80 bg-primary/25 rounded-full blur-3xl translate-x-1/4 translate-y-1/4" />
 
       <div className="relative max-w-7xl mx-auto px-6 py-28 lg:py-36">
-   <div className="grid lg:grid-cols-2 gap-16 items-center -mt-10 sm:-mt-14 lg:-mt-20">
-
+        <div className="grid lg:grid-cols-2 gap-16 items-center -mt-10 sm:-mt-14 lg:-mt-20">
 
           {/* LEFT CONTENT */}
           <div className="text-center lg:text-left space-y-6">
@@ -30,7 +33,6 @@ export default function Hero() {
               Back-office support for small businesses
             </div>
 
-            {/* Heading */}
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight">
               <span className="text-white block">Smarter Back-Office</span>
               <span className="block text-transparent bg-clip-text bg-gradient-to-r from-white via-purple-200 to-primary">
@@ -38,7 +40,6 @@ export default function Hero() {
               </span>
             </h1>
 
-            {/* Subtext */}
             <p className="text-base md:text-lg text-white/75 max-w-xl mx-auto lg:mx-0 leading-relaxed">
               We handle admin, operations, bookkeeping, compliance, and
               paperwork so you can scale your business without the daily
@@ -47,21 +48,21 @@ export default function Hero() {
 
             {/* Buttons */}
             <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 pt-2">
-  <a
-    href="#contact"
-    className="bg-light text-primary px-8 py-3 rounded-xl font-semibold shadow-lg hover:bg-white hover:scale-105 transition text-center"
-  >
-    Book a Free Consultation
-  </a>
+              <a
+                href="#contact"
+                className="bg-light text-primary px-8 py-3 rounded-xl font-semibold shadow-lg hover:bg-white hover:scale-105 transition text-center"
+              >
+                Book a Free Consultation
+              </a>
 
-  <a
-    href="#services"
-    className="border border-white/30 px-8 py-3 rounded-xl font-semibold text-white hover:bg-white hover:text-primary hover:scale-105 transition text-center"
-  >
-    Explore Our Services
-  </a>
-</div>
-</div>
+              <a
+                href="#services"
+                className="border border-white/30 px-8 py-3 rounded-xl font-semibold text-white hover:bg-white hover:text-primary hover:scale-105 transition text-center"
+              >
+                Explore Our Services
+              </a>
+            </div>
+          </div>
 
           {/* RIGHT SERVICES CARD */}
           <div className="flex justify-center lg:justify-end">

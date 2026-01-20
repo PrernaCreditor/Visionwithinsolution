@@ -22,28 +22,28 @@ export default function ContactForm() {
     setLoading(true);
     setSuccess("");
     setError("");
-  
+
     try {
-      const res = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/support`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name: formData.name,
-            email: formData.email,
-            service: formData.service,
-            message: formData.message,
-          }),
-        }
-      );
-  
-      const data = await res.json().catch(() => ({}));
-  
-      if (!res.ok) {
-        throw new Error(data.message || "Failed to send message");
+      const formDataToSend = new FormData();
+      formDataToSend.append("access_key", import.meta.env.VITE_WEB3FORMS_KEY);
+      formDataToSend.append("name", formData.name);
+      formDataToSend.append("email", formData.email);
+      formDataToSend.append("service", formData.service);
+      formDataToSend.append("message", formData.message);
+      formDataToSend.append("subject", "New Contact Form Submission");
+      formDataToSend.append("from_name", formData.name);
+
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formDataToSend,
+      });
+
+      const data = await res.json();
+
+      if (!data.success) {
+        throw new Error("Web3Forms submission failed");
       }
-  
+
       setSuccess("✅ Your message has been sent successfully!");
       setFormData({
         name: "",
@@ -57,7 +57,6 @@ export default function ContactForm() {
       setLoading(false);
     }
   };
-  
 
   return (
     <section
@@ -81,8 +80,8 @@ export default function ContactForm() {
           </h2>
 
           <p className="text-secondary/70 max-w-2xl mx-auto text-sm md:text-base">
-            Tell us a bit about your business and we’ll follow up with clear next
-            steps — no pressure, just support.
+            Tell us a bit about your business and we’ll follow up with clear
+            next steps — no pressure, just support.
           </p>
         </div>
 
@@ -120,7 +119,11 @@ export default function ContactForm() {
               Send us a message
             </h3>
 
-            <form onSubmit={handleSubmit} className="space-y-5 text-sm font-medium">
+            <form
+              onSubmit={handleSubmit}
+              className="space-y-5 text-sm font-medium"
+            >
+              <input type="checkbox" name="botcheck" className="hidden" />
               <div className="grid md:grid-cols-2 gap-4">
                 <input
                   name="name"

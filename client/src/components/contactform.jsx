@@ -25,7 +25,7 @@ export default function ContactForm() {
 
     try {
       const formDataToSend = new FormData();
-      formDataToSend.append("access_key", import.meta.env.VITE_WEB3FORMS_KEY);
+      formDataToSend.append("access_key", import.meta.env.VITE_WEB3FORMS_ACCESS_KEY);
       formDataToSend.append("name", formData.name);
       formDataToSend.append("email", formData.email);
       formDataToSend.append("service", formData.service);

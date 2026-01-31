@@ -108,7 +108,7 @@ export default function ContactForm() {
                 <p>📍 Supporting businesses nationwide</p>
                 <p>📞 Phone: 216.245.8550</p>
                 <p>📠 Fax: 216.674.6234</p>
-                <p>📧 info@visionswithinsolutions.com</p>
+                <p>📧  ashley@visionswithinsolutions.com</p>
               </div>
             </div>
           </div>
